@@ -55,4 +55,24 @@ create or replace trigger buy_record_id_auto_trigger
 	begin  
 	    select buy_record_id_sequence.nextval into :new.id  FROM dual;  
 	end;  
-/  
+/
+
+--logical triggers
+create or replace trigger model_records_trigger after insert on record
+	for each row 
+    declare 
+        allcount number(6);
+        one_record_id number(6);
+	begin 
+    select count(*) into allcount from daily_records where app_key = :new.app_key and to_char(idate,'yyyymmdd')=to_char(CURRENT_DATE,'yyyymmdd');
+  
+    if allcount = 0 then
+        insert into daily_records(app_key,idate,count) values(:new.app_key,CURRENT_DATE,1);
+    else 
+      select id into one_record_id from daily_records where app_key = :new.app_key and to_char(idate,'yyyymmdd')=to_char(CURRENT_DATE,'yyyymmdd');
+      update daily_records set count=count+1 where id = one_record_id;
+    end if;
+    
+	
+	end;
+/

@@ -1,0 +1,1 @@
+insert into iadmin(user_name,password,token) values('dapan','123','120c2bcf39b4ad7e92031ed463d69c41');
