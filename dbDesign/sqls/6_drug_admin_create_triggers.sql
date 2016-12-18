@@ -62,7 +62,7 @@ create or replace trigger model_records_trigger after insert on record
 	for each row 
     declare 
         allcount number(6);
-        one_record_id number(6);
+        one_record_id daily_records.id%type;
 	begin 
     select count(*) into allcount from daily_records where app_key = :new.app_key and to_char(idate,'yyyymmdd')=to_char(CURRENT_DATE,'yyyymmdd');
   
