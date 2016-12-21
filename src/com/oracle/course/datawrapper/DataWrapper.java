@@ -1,13 +1,14 @@
 package com.oracle.course.datawrapper;
 
+import com.oracle.course.enums.CodeEnum;
 
 public class DataWrapper<T>  {
 
     private T data;
-    private Long code;
+    private CodeEnum code;
 
     public DataWrapper() {
-        code = new Long(0);
+        code = CodeEnum.Success;
     }
 
 
@@ -20,12 +21,12 @@ public class DataWrapper<T>  {
     }
 
 
-	public Long getCode() {
+	public CodeEnum getCode() {
 		return code;
 	}
 
 
-	public void setCode(Long code) {
+	public void setCode(CodeEnum code) {
 		this.code = code;
 	}
 
