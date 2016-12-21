@@ -71,7 +71,7 @@ public class User {
 	}
 	
 	@Basic
-	@Column(name="comsumed_money")
+	@Column(name="consumed_money")
 	public Double getConsumedMoney() {
 		return consumedMoney;
 	}

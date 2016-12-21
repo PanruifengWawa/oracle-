@@ -9,10 +9,10 @@ grant read, insert on buy_record to drug_user;
 
 
 -- grant privilege on sequence to drug_user
-grant read on iadmin_id_sequence to drug_user;
-grant read on imodel_id_sequence to drug_user;
-grant read on record_id_sequence to drug_user;
-grant read on daily_records_id_sequence to drug_user;
-grant read on drug_id_sequence to drug_user;
-grant read on iuser_id_sequence to drug_user;
-grant read on buy_record_id_sequence to drug_user;
+grant select on iadmin_id_sequence to drug_user;
+grant select on imodel_id_sequence to drug_user;
+grant select on record_id_sequence to drug_user;
+grant select on daily_records_id_sequence to drug_user;
+grant select on drug_id_sequence to drug_user;
+grant select on iuser_id_sequence to drug_user;
+grant select on buy_record_id_sequence to drug_user;

@@ -31,8 +31,9 @@ public class UserController {
     @ResponseBody
     public DataWrapper<Void> register(
     		@RequestParam(value = "userName", required = true) String userName,
-    		@RequestParam(value = "password", required = true) String password) {
-        return userService.register(userName, password);
+    		@RequestParam(value = "password", required = true) String password,
+    		@RequestParam(value = "email", required = true) String email) {
+        return userService.register(userName, password,email);
     }
 
 }
