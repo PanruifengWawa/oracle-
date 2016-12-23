@@ -75,7 +75,7 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
 	public Integer updateUser(Date birthday, String email, String token) {
 		// TODO Auto-generated method stub
 		Session session = getSession();
-		Integer flag = 0;
+		Integer flag = null;
 		try {
 			ProcedureCall procedureCall = session.createStoredProcedureCall("drug_admin.IDRUG.change_user_details");
 			procedureCall.registerParameter("in_birthday", Date.class,ParameterMode.IN).bindValue(birthday);

@@ -13,7 +13,7 @@ import com.oracle.course.service.UserService;
 
 
 @Controller
-@RequestMapping(value="api/user")
+@RequestMapping(value="v1/api/user")
 public class UserController {
 	
 	@Autowired

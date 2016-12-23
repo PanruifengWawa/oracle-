@@ -78,7 +78,7 @@ create or replace trigger model_records_trigger after insert on record
 	end;
 /
 
---calculate age when you input or delete the birthday
+--calculate age when you input or update the birthday
 create or replace trigger cal_age before update or insert on iuser
 	for each row 
 	begin 
@@ -87,5 +87,27 @@ create or replace trigger cal_age before update or insert on iuser
     else
       select floor(MONTHS_BETWEEN(sysdate,:new.birthday)/12) into :new.age from dual;
     end if;    
+	end;
+/
+
+-- when user buy drugs,it wull update user's consumed money andd his level
+create or replace trigger update_user_level after insert on buy_record
+	for each row 
+  declare
+    price drug.price%type;
+    n_consumed_money iuser.consumed_money%type;
+    user_level iuser.ilevel%type;
+	begin 
+      select consumed_money into n_consumed_money from iuser where id =  :new.user_id;
+      select price into price from drug where id =  :new.drug_id;
+      n_consumed_money := n_consumed_money + :new.amount * price;
+      user_level := case when n_consumed_money < 200 then 1
+                         when n_consumed_money >= 200 and n_consumed_money < 1000 then 2
+                         when n_consumed_money >= 1000 and n_consumed_money < 2000 then 3
+                         when n_consumed_money >= 2000 and n_consumed_money < 3000  then 4
+                         when n_consumed_money >= 3000 and n_consumed_money < 10000  then 5
+                         else 6
+                    end;
+      update iuser set consumed_money = n_consumed_money,ilevel = user_level where id = :new.user_id;
 	end;
 /

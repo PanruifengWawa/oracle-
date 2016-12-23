@@ -7,6 +7,8 @@ grant read on drug to drug_user;
 grant read, insert, update, delete on iuser to drug_user;
 grant read, insert on buy_record to drug_user;
 
+-- grant privilege on views to drug_user
+grant read on user_buy_record to drug_user;
 
 -- grant privilege on sequence to drug_user
 grant select on iadmin_id_sequence to drug_user;
