@@ -5,10 +5,10 @@ import com.oracle.course.enums.CodeEnum;
 public class DataWrapper<T>  {
 
     private T data;
-    private CodeEnum code;
+    private Integer code;
 
     public DataWrapper() {
-        code = CodeEnum.Success;
+        code = CodeEnum.Success.getCode();
     }
 
 
@@ -21,12 +21,12 @@ public class DataWrapper<T>  {
     }
 
 
-	public CodeEnum getCode() {
+	public Integer getCode() {
 		return code;
 	}
 
 
-	public void setCode(CodeEnum code) {
+	public void setCode(Integer code) {
 		this.code = code;
 	}
 

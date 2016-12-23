@@ -58,6 +58,7 @@ create or replace trigger buy_record_id_auto_trigger
 /
 
 --logical triggers
+-- 1 when a user use model it will insert a record into table record, and this will cause record in table daily_records to add 1 
 create or replace trigger model_records_trigger after insert on record
 	for each row 
     declare 
@@ -74,5 +75,17 @@ create or replace trigger model_records_trigger after insert on record
     end if;
     
 	
+	end;
+/
+
+--calculate age when you input or delete the birthday
+create or replace trigger cal_age before update or insert on iuser
+	for each row 
+	begin 
+    if :new.birthday is null then 
+        :new.age := null;
+    else
+      select floor(MONTHS_BETWEEN(sysdate,:new.birthday)/12) into :new.age from dual;
+    end if;    
 	end;
 /

@@ -16,3 +16,8 @@ grant select on daily_records_id_sequence to drug_user;
 grant select on drug_id_sequence to drug_user;
 grant select on iuser_id_sequence to drug_user;
 grant select on buy_record_id_sequence to drug_user;
+
+
+
+--grant privilege on pkg to drug_user
+grant execute on IDRUG to drug_user;

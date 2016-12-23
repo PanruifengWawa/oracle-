@@ -84,7 +84,13 @@ public class BaseDao<T>{
             session.flush();
         }catch(Exception e){
             e.printStackTrace();
-            session.getTransaction().rollback();
+            try {
+            	session.getTransaction().rollback();
+            	session.clear();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+            
 
             return false;
         }
