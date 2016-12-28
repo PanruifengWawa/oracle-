@@ -8,17 +8,33 @@ RETURN iuser.token%type AS
     RETURN return_token;
   END login_get_token;
   
+PROCEDURE add_user(in_user_name IN iuser.user_name%type,in_password IN iuser.password%type,in_token IN iuser.token%type,in_email IN iuser.email%type ,flag OUT number)
+IS
+  email_format number(1);
+  user_count number(1);
+  BEGIN
+    select count(1) into email_format from dual where regexp_like(in_email,'^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$');
+    select count(*) into user_count from iuser where user_name = in_user_name;
+    if email_format = 1 and user_count = 0
+    then
+      insert into iuser(user_name,password,token,ilevel,consumed_money,email) values(in_user_name,in_password,in_token,0,0,in_email);
+      commit;
+      flag := 1;
+    else
+      flag := 0;
+    end if;
+  END add_user;
   
-  PROCEDURE change_user_details(in_birthday IN iuser.birthday%type := null,in_eamil IN iuser.email%type,in_token IN iuser.token%type,flag OUT number) 
+  PROCEDURE change_user_details(in_birthday IN iuser.birthday%type := null,in_email IN iuser.email%type,in_token IN iuser.token%type,flag OUT number) 
   IS
   email_format number(1);
   user_id_count iuser.id%type;
   BEGIN
-    select count(1) into email_format from dual where regexp_like(in_eamil,'^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$');
+    select count(1) into email_format from dual where regexp_like(in_email,'^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$');
     select count(*) into user_id_count from iuser where token = in_token;
     if(user_id_count = 1 and email_format = 1) 
     then 
-      update iuser set email=in_eamil , birthday=in_birthday where token = in_token;
+      update iuser set email=in_email , birthday=in_birthday where token = in_token;
       commit;
       flag := 1;
     else
