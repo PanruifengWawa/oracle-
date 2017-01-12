@@ -15,7 +15,7 @@ create index admin_token_idx on iadmin(token);
 create index model_id_idx on imodel(id);
 create index model_app_key on imodel(app_key);
 
-create index user_login_idx on imodel(user_name,password);
-create index user_token_idx on imodel(token);
+create index user_login_idx on iuser(user_name,password);
+create index user_token_idx on iuser(token);
 
 create index record_app_key_idx on record(app_key);
