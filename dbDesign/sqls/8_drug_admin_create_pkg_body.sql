@@ -61,3 +61,49 @@ IS
   END bug_drug;
 
 END IDRUG;
+
+
+
+
+
+
+
+
+
+
+
+
+create or replace PACKAGE BODY ADMIN_COMMAND AS
+
+  procedure exportDrugSales(in_file_name IN varchar2 ) AS
+  outfile utl_file.file_type;
+  BEGIN
+    outfile := utl_file.fopen('UTLEXPORTPATH',in_file_name,'W');
+    for rec in (select drug_name, sum(amount) amount from user_buy_record group by drug_name)
+    loop
+       utl_file.put_line(outfile, rec.drug_name || ',' ||rec.amount);
+    end loop;
+    utl_file.fclose(outfile);
+  END exportDrugSales;
+
+  procedure exportUserBugRecord(in_user_id IN iuser.id%type,in_file_name IN varchar2 ) AS 
+  CURSOR drug_cursor IS
+      select * from user_buy_record ubr where ubr.user_id = exportUserBugRecord.in_user_id;
+
+  outfile utl_file.file_type;
+  one_row user_buy_record%rowtype;
+  BEGIN
+    outfile := utl_file.fopen('UTLEXPORTPATH',in_file_name,'W');
+    
+    open drug_cursor;
+    loop
+        fetch drug_cursor into one_row;
+        exit when drug_cursor%notfound;
+        utl_file.put_line(outfile,one_row.drug_name || ',' || one_row.idate || ',' ||one_row.amount);
+    end loop;
+    close drug_cursor;
+    
+    
+    utl_file.fclose(outfile);
+  END exportUserBugRecord;
+END ADMIN_COMMAND;

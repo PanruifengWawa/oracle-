@@ -9,3 +9,13 @@ PROCEDURE change_user_details(in_birthday IN iuser.birthday%type := null,in_emai
 
 PROCEDURE bug_drug(in_drug_id IN drug.id%type,in_amount IN BUY_RECORD.AMOUNT%type,in_token IN iuser.token%type,flag OUT number);
 END IDRUG;
+
+
+
+
+create or replace PACKAGE ADMIN_COMMAND AS 
+
+  procedure exportDrugSales(in_file_name IN varchar2 );
+
+  procedure exportUserBugRecord(in_user_id IN iuser.id%type,in_file_name IN varchar2 );
+END ADMIN_COMMAND;
