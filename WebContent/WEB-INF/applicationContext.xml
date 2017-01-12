@@ -20,7 +20,7 @@
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hiberante.format_sql">true</prop>
                 <prop key="hiberante.connection.autocommit">true</prop>
-                <prop key="hibernate.connection.url">jdbc:oracle:thin:@100.64.9.14:1521/PDBORCL</prop>
+                <prop key="hibernate.connection.url">jdbc:oracle:thin:@10.60.36.99:1521/PDBORCL</prop>
             </props>
         </property>
         <property name="annotatedClasses">
@@ -33,7 +33,7 @@
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-        <property name="url" value="jdbc:oracle:thin:@100.64.9.14:1521/PDBORCL" />
+        <property name="url" value="jdbc:oracle:thin:@10.60.36.99:1521/PDBORCL" />
         <property name="username" value="drug_user" />
         <property name="password" value="tongji123" />
     </bean>

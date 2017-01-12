@@ -43,7 +43,7 @@ public class UserController {
         return userService.getUserDetails(token);
     }
 	
-	@RequestMapping(value="/details", method = RequestMethod.PUT)
+	@RequestMapping(value="/changeDetails", method = RequestMethod.POST)
     @ResponseBody
     public DataWrapper<Void> update(
     		@RequestParam(value = "birthday", required = true) String birthday,
